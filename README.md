@@ -13,3 +13,5 @@ You need a steam api key which you get [here](https://steamcommunity.com/dev/api
 If you are only interested in getting match data then you dont need to install scikit-learn and can use `get_data.py` alone.
 
 The program will continually gather recent matches and store them in a sqlite3 database. You can exit it with ctrl-c.
+
+When we have enough data we can train machine learning models with scikit-learn. This is done in `machine learning/machinelearning.py`. Scroll to the bottom of the file and edit the machine learning process how you see fit and run the file.
