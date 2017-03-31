@@ -11,3 +11,5 @@ For machine learning we first query the Dota2 api to retrieve data of real match
 You need a steam api key which you get [here](https://steamcommunity.com/dev/apikey).
 
 If you are only interested in getting match data then you dont need to install scikit-learn and can use `get_data.py` alone.
+
+The program will continually gather recent matches and store them in a sqlite3 database. You can exit it with ctrl-c.
