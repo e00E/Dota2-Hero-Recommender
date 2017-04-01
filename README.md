@@ -15,3 +15,11 @@ If you are only interested in getting match data then you dont need to install s
 The program will continually gather recent matches and store them in a sqlite3 database. You can exit it with ctrl-c.
 
 When we have enough data we can train machine learning models with scikit-learn. This is done in `machine learning/machinelearning.py`. Scroll to the bottom of the file and edit the machine learning process how you see fit and run the file.
+
+# Hero Recommending
+Hero recommendations are done with Monte Carlo Tree Search. The main program is called with:
+```python "monte carlo/main.py" "modelname"```
+and it will interactively ask you to pick and enter the opponent's picks. Every step it displays the expected win probability and number of simulations run with the top X hero choices.
+
+"modelname" is the name of a model that was previously trained.
+It has some further command line options which you can see by running it with `--help`.
