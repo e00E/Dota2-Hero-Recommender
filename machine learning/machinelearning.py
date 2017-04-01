@@ -129,7 +129,7 @@ def make_training_validate_test(database, training_ratio, undersample=True):
 
 def export_model(model, name):
 	"""Export a model to disk. Models can consist of multiple files so a directory is created for each model."""
-	path = "data/models/{}/".format(name)
+	path = "data/{}/".format(name)
 	filename = "{}.model".format(name)
 	if os.path.isdir(path):
 		print("model already exists")
@@ -140,7 +140,7 @@ def export_model(model, name):
 		
 def load_model(name):
 	"""Load a model from disk."""
-	model = joblib.load("data/models/{}/{}.model".format(name, name))
+	model = joblib.load("data/{}/{}.model".format(name, name))
 	# Setting n_jobs to 1 in case it was set to a higher number while training the model seems to makes predictions of single samples much faster.
 	model.n_jobs = 1
 	return model
@@ -165,8 +165,8 @@ def print_speed_and_accuracy(models = ["decisiontree", "gradienttreeboosting", "
 		print(model, accuracy, duration)
 	
 if __name__ == '__main__':
-	# Generate train, validate, test sets
-	#make_training_validate_test("data/matches.sqlite", 0.8)
+	# Generate train, validate, test sets. Comment this out after having run it once so you dont regnerate the data every run.
+	make_training_validate_test("data/matches.sqlite", 0.8)
 
 	# Load training data if it has previously been generated	
 	training_data = joblib.load("data/training_data")
@@ -181,14 +181,15 @@ if __name__ == '__main__':
 	# Train a model
 	# Examples for well working models and parameters. Uncomment to use one.
 	# model = linear_model.LogisticRegression(solver='sag', dual=False, penalty='l2', n_jobs=4)
+	# modelname = "logisticregression"
 	# model = RandomForestClassifier(n_estimators=200, min_samples_split=0.001, max_depth=None, max_features="auto", n_jobs=2)
 	# model = GradientBoostingClassifier(n_estimators=75, max_features=None, max_depth=15)
 	# model = neighbors.KNeighborsClassifier(algorithm='ball_tree', n_neighbors=180, weights='distance', metric='manhattan', leaf_size=200, n_jobs=4)
 	# model = MLPClassifier(hidden_layer_sizes=(100,))
 	
-	model.train(training_data, training_target)
+	model.fit(training_data, training_target)
 	model.score(validate_data, validate_target)
 
 	# Export it to disk
-	export_model(model, "modelname")
+	export_model(model, modelname)
 	
